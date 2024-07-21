@@ -32,7 +32,7 @@ import { gapi } from 'gapi-script'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 const clientId = import.meta.env.VITE_CLIENTID;
 function App() {
-  const url="http://localhost:3000"
+  const url="https://housingrentsell-backend.onrender.com"
   const [user, setUser] = useState(null);
   const [member, setMember] = useState(null);
   const [employee, setEmployee] = useState(null);
