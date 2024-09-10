@@ -3,23 +3,23 @@ import logo from "../../assets/logo.png";
 
 function ContactUs() {
     return (
-        <div className='flex flex-row items-center gap-3 justify-evenly'>
-            <div>
-                <img src={logo} alt="" className='w-[200px] h-[200px] rounded-full' />
+        <div className='flex flex-col md:flex-row items-center gap-5 md:gap-3 justify-center md:justify-evenly p-5'>
+            <div className='mb-5 md:mb-0'>
+                <img src={logo} alt="Logo" className='w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full' />
             </div>
-            <div className='flex flex-col gap-5'>
-                <div className='font-bold text-center'>
-                    <p>
+            <div className='flex flex-col gap-5 text-center md:text-left'>
+                <div className='font-bold'>
+                    <p className='text-lg md:text-xl'>
                         Nitte Meenakshi Institute Of Technology,
                     </p>
-                    <p>Bangalore</p>
-                    <p>560064</p>
+                    <p className='text-lg md:text-xl'>Bangalore</p>
+                    <p className='text-lg md:text-xl'>560064</p>
                 </div>
-                <p>Contact me at : +917348233507</p>
-                <p>Email us at : 1nt21cs138.rachit@nmit.ac.in</p>
+                <p className='text-base md:text-lg'>Contact me at : +917348233507</p>
+                <p className='text-base md:text-lg'>Email us at : 1nt21cs138.rachit@nmit.ac.in</p>
             </div>
         </div>
-    )
+    );
 }
 
-export default ContactUs
+export default ContactUs;

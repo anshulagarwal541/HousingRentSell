@@ -17,14 +17,6 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 
-
-
-
-
-
-
-
-
 function NavBar() {
   const { member, setMember, user, setUser } = useContext(AuthContext);
   const [right, setRight] = useState(false);
@@ -62,7 +54,7 @@ function NavBar() {
       <Divider />
       <List>
         {['Update Details', 'Applications', 'Queries', 'Add Property', 'User\'s Sell Request'].map((text, index) => (
-          <Link to={`${text == "Update Details" ? "/updateDetails" : (text == "Queries" ? "/queries" : (text == "Applications" ? "/applications" : (text == "Add Property" ? "/addProperty" : (text=='User\'s Sell Request' ? "/userSellRequest" : ""))))}`}>
+          <Link to={`${text == "Update Details" ? "/updateDetails" : (text == "Queries" ? "/queries" : (text == "Applications" ? "/applications" : (text == "Add Property" ? "/addProperty" : (text == 'User\'s Sell Request' ? "/userSellRequest" : ""))))}`}>
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -86,9 +78,58 @@ function NavBar() {
       </ListItem>
     </Box>
   );
-
-
-
+  const list2 = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+      style={{ backgroundColor: '#fff9f5', height: '100%' }}
+    >
+      <List>
+        <Link to='/user/:queries'>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Queries" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/userAddProperty">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sell Property" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/userAddProperty/sellData">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Selling Databse" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+      <ListItem>
+        <div className=' items-center min-w-full flex justify-end'>
+          {(!user && !member) ? (
+            <Link style={{ minWidth: '100%' }} to="/login"><ListItemButton style={{ border: '2px solid black', display: 'flex', textAlign: 'center' }}><ListItemText primary={'Login'} /></ListItemButton></Link>
+          ) :
+            (
+              <Link onClick={setLogout} style={{ minWidth: '100%' }} to="/login"><ListItemButton style={{ border: '2px solid black', display: 'flex', textAlign: 'center' }}><ListItemText primary={'Logout'} /></ListItemButton></Link>
+            )}
+        </div>
+      </ListItem>
+    </Box>
+  );
   const setLogout = () => {
     setUser(null);
     setMember(null);
@@ -98,29 +139,31 @@ function NavBar() {
   }
   return (
     <div className="w-[100%] py-2 bg-[#fff7f0]">
-      <div className="w-[80%] mx-auto flex flex-row justify-between items-center">
-        <div className='flex items-center justify-center'>
+      <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
+        <div className='hidden md:flex items-center justify-center'>
           <img src={logo} alt="logo" className='w-[80px] h-[80px] rounded-full' />
         </div>
-        <div>
-          <ul className='list-none flex flex-row gap-5 cursor-pointer'>
-            <Link to="/"><li className="p-5 hover:font-bold">Home</li></Link>
-            <Link to="/listing"><li className="p-5 hover:font-bold">Listing</li></Link>
-            <Link to="/agentList"><li className="p-5 hover:font-bold">Agents</li></Link>
-            {/* <Link to="/property"><li className="p-5 hover:font-bold">Property</li></Link>
-            <Link to="/blog"><li className="p-5 hover:font-bold">Blog</li></Link> */}
-            <Link to="/about"><li className="p-5 hover:font-bold">About Us</li></Link>
-            {user && (
-              <Link to='/user/:queries'><li className="p-5 hover:font-bold">Queries</li></Link>
-            )}
-            {user && (
-              <Link to="/userAddProperty"><li className='p-5 hover:font-bold'>Sell Property</li></Link>
-            )}
-            {user && (
-              <Link to="/userAddProperty/sellData"><li className='p-5 hover:font-bold'>Selling Databse</li></Link>
-            )}
+        {/* Navigation Links */}
+        <div className="flex text-sm md:text-lg">
+          <ul className="list-none flex flex-row gap-5 cursor-pointer items-center">
+            <Link to="/"><li className="p-2 md:p-5 hover:font-bold">Home</li></Link>
+            <Link to="/listing"><li className="p-2 md:p-5 hover:font-bold">Listing</li></Link>
+            <Link to="/agentList"><li className="p-2 md:p-5 hover:font-bold">Agents</li></Link>
+            <Link to="/about"><li className="p-2 md:p-5 hover:font-bold">About Us</li></Link>
           </ul>
         </div>
+        {user && (
+          <div>
+            <Button style={{ color: 'black' }} onClick={toggleDrawer(right, true)}><MenuIcon /></Button>
+            <Drawer
+              anchor={'right'}
+              open={right}
+              onClose={toggleDrawer('right', false)}
+            >
+              {list2(right)}
+            </Drawer>
+          </div>
+        )}
         <div>
           {member && (
             <div>
@@ -133,17 +176,6 @@ function NavBar() {
                 {list(right)}
               </Drawer>
             </div>
-          )}
-          {user ? (
-            <div>
-              <button onClick={setLogout} className='bg-black text-white px-5 py-2 font-bold rounded-xl'>Logout</button>
-            </div>
-          ) : (
-            member ? "" : (
-              <div>
-                <Link to='/login'><button className='bg-black text-white px-5 py-2 font-bold rounded-xl'>Login</button></Link>
-              </div>
-            )
           )}
         </div>
       </div>

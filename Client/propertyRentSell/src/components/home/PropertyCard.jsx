@@ -7,11 +7,10 @@ import bath from "../../assets/bath.svg";
 import sqft from "../../assets/sqft.svg";
 import { Link } from 'react-router-dom';
 
-function PropertyCard({ property, key }) {
-
+function PropertyCard({ property }) {
     return (
-        <div className='bg-[#fff9f6] w-1/4 pb-5 flex flex-col gap-8 justify-between items-center border border-3 text-[#626262] font-bold border-red-100 rounded-3xl'>
-            <img src="https://img.onmanorama.com/content/dam/mm/en/lifestyle/decor/images/2023/6/1/house-middleclass.jpg" alt="" className='h-[260px] w-[100%] rounded-t-3xl' />
+        <div className='bg-[#fff9f6] w-full md:w-1/2 lg:w-1/4 pb-5 flex flex-col gap-8 justify-between items-center border border-3 text-[#626262] font-bold border-red-100 rounded-3xl'>
+            <img src="https://img.onmanorama.com/content/dam/mm/en/lifestyle/decor/images/2023/6/1/house-middleclass.jpg" alt="" className='h-[260px] w-full rounded-t-3xl object-cover' />
             <div className='w-[90%] flex flex-row gap-5'>
                 <img src={mapLocate} alt="" />
                 <p>
@@ -57,8 +56,10 @@ function PropertyCard({ property, key }) {
                     </p>
                 </div>
             </div>
-            <div className='w-[90%] flex flex-row gap-5 items-center'>
-                <Link to={`/property/${property._id}`} className='bg-black text-white px-8 py-3 rounded-2xl'>View Details</Link>
+            <div className='w-[90%] flex flex-col sm:flex-row gap-5 items-center justify-between'>
+                <Link to={`/property/${property._id}`} className='bg-black text-white px-8 py-3 rounded-2xl w-full sm:w-auto text-center'>
+                    View Details
+                </Link>
                 <p className='text-black font-bold text-xl'>
                     $ {property.totalPrice}
                 </p>

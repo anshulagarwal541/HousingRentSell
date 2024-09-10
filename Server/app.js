@@ -957,7 +957,7 @@ app.post('/updateDetails', validateTeam, async (req, res) => {
     }
 })
 
-app.post('/review', validateUser, async (req, res, next) => {
+app.post('/review', validateUser, async (req, res) => {
     try {
         const data = req.body;
         const newReview = new Review({
@@ -969,10 +969,7 @@ app.post('/review', validateUser, async (req, res, next) => {
         await newReview.save();
         const user = await User.findById(data.user);
         user.reviews.push(newReview);
-        const agent = await Team.findById(data.agent).populate('reviews'); // array
-        // if (!agent) {
-        //     throw new Error("Agent not found")
-        // }
+        const agent = await Team.findById(data.agent).populate('reviews');
         const userHasReviewed = agent.reviews.some(review => review.user.toString() === data.user);
         if (!userHasReviewed) {
             agent.reviews.push(newReview);

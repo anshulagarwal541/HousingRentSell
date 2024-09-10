@@ -8,12 +8,14 @@ import Footer from '../components/footer';
 function AboutUs() {
   return (
     <div className='bg-[#ffffff]'>
-      <Front />
-      <Stats />
-      <FounderNote />
-      <Team />
+      <div className='container mx-auto px-4'>
+        <Front />
+        <Stats />
+        <FounderNote />
+        <Team />
+      </div>
     </div>
-  )
+  );
 }
 
-export default AboutUs
+export default AboutUs;

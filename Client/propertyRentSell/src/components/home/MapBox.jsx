@@ -1,44 +1,40 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
-import ReactMapGL, { Marker, Popup, NavigationControl } from "react-map-gl";
+import React, { useState, useEffect, useContext } from 'react';
+import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import { AuthContext } from '../../Helpers/AuthContext';
+
 function MapBox() {
-    const {url}=useContext(AuthContext)
+    const { url } = useContext(AuthContext);
     const [viewPort, setViewPort] = useState({
         latitude: 36.310699,
         longitude: 59.599457,
         zoom: 3,
         bearing: 0,
         pitch: 0
-    })
+    });
     const [properties, setProperties] = useState(null);
-    const [selected, setSelected] = useState(null)
-
 
     useEffect(() => {
         axios.get(`${url}/properties`).then((response) => {
-            if (response.data.error) {
-                
-            }
-            else {
+            if (!response.data.error) {
                 setProperties(response.data);
             }
-        })
-    }, [])
+        });
+    }, [url]);
 
     return (
-        <div>
+        <div className='w-full h-[300px] sm:h-[400px] lg:h-[500px]'>  {/* Responsive heights */}
             <ReactMapGL
                 {...viewPort}
                 mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
                 style={{
                     width: "100%",
-                    height: '500px'
+                    height: "100%",  // Set map height dynamically
                 }}
                 mapStyle='mapbox://styles/anshulagarwal541/clx0nzeqh000301qs7gl2978k'
                 onMove={event => setViewPort(event.viewState)}
-                scrollZoom={false}
+                scrollZoom={window.innerWidth >= 768}
                 setFog={true}
             >
                 {properties && properties.map((property, i) => (
@@ -47,12 +43,17 @@ function MapBox() {
                         latitude={property.latitude}
                         longitude={property.longitude}
                     >
+                        {/* Add a marker icon or any custom marker content */}
                     </Marker>
                 ))}
-                <NavigationControl style={{ marginRight: "50px" }} />
+                <NavigationControl
+                    style={{ marginRight: "10px", marginTop: "10px" }}
+                    showCompass={true}
+                    showZoom={true}
+                />
             </ReactMapGL>
-        </div >
-    )
+        </div>
+    );
 }
 
-export default MapBox
+export default MapBox;
