@@ -969,8 +969,10 @@ app.post('/review', validateUser, async (req, res) => {
         await newReview.save();
         const user = await User.findById(data.user);
         user.reviews.push(newReview);
-        const agent = await Team.findById(data.agent).populate('reviews');
-        const userHasReviewed = agent.reviews.some(review => review.user.toString() === data.user);
+        const agent = await Team.findById(data.agent).populate({
+            path:"reviews"
+        });
+        const userHasReviewed = agent.reviews.some(review => review.user._id == data.user);
         if (!userHasReviewed) {
             agent.reviews.push(newReview);
             let sum = 0;
