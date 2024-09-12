@@ -236,42 +236,70 @@ function PropertyDetails() {
 
     return (
         <div className='bg-[#fff9f6] py-10'>
-            <div className='relative h-[600px] w-[90%] mx-auto flex flex-col flex-wrap gap-5'>
-                <div className='flex h-[600px] flex-col flex-wrap gap-5'>
+            <div className='h-auto xl:h-[600px] w-[90%] py-2 mx-auto flex flex-col flex-wrap gap-5'>
+                <div className='relative flex h-fit xl:h-[600px] flex-col flex-wrap gap-5'>
                     {property && property.images.slice(0, 3).map((image, i) => {
-                        return <img key={i} src={image} alt="" className={`${i === 0 ? "h-[550px] w-[850px]" : "h-[263px]"} rounded-3xl`} />
+                        return <img key={i} src={image} alt="" className={`${i === 0 ? "w-full h-[20rem] xl:h-[550px] xl:w-[850px]" : "h-[20rem] xl:h-[263px]"} rounded-3xl`} />
                     })}
+                    <div className='absolute w-fit h-fit bottom-20 right-10'>
+                        <Link to={`/property/${id}/images`}><button className='bg-white text-black border-2 rounded-3xl w-fit px-5 py-2'>See more</button></Link>
+                    </div>
                 </div>
-                <div className='absolute w-fit h-fit bottom-20 right-10'>
-                    <Link to={`/property/${id}/images`}><button className='bg-white text-black border-2 rounded-3xl w-fit px-5 py-2'>See more</button></Link>
-                </div>
+
             </div>
-            <div className='flex flex-row gap-5 w-[90%] mx-auto justify-between'>
-                <div className='w-[850px] flex flex-col gap-10'>
+            <div className='flex flex-col  lg:flex-row gap-5 w-[90%] mx-auto justify-center lg:justify-between'>
+                <div className='w-full lg:w-[850px] justify-center flex flex-col gap-10'>
                     {property && (
-                        <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
-                            <p className='font-bold text-4xl'>{property.address}</p>
-                            <div className='flex flex-row gap-5 mt-10'>
-                                <div className='border border-1 border-black p-5 rounded-3xl'>
-                                    <span className='font-bold text-xl'>${property.totalPrice}</span>
-                                    <p>Online / Cash Payment</p>
+                        // <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        //     <p className='font-bold text-4xl'>{property.address}</p>
+                        //     <div className='flex flex-row gap-5 mt-10'>
+                        //         <div className='border border-1 border-black p-5 rounded-3xl'>
+                        //             <span className='font-bold text-xl'>${property.totalPrice}</span>
+                        //             <p>Online / Cash Payment</p>
+                        //         </div>
+                        //         <div className='border border-1 border-black p-5 rounded-3xl'>
+                        //             <span className='font-bold text-xl'>${property.emiPrice} / month</span>
+                        //             <p>0% EMI for 6 Months</p>
+                        //         </div>
+                        //     </div>
+                        //     <p className='text-lg flex flex-col gap-2'><span className='font-bold text-3xl mt-5'>Well-constructed 1562 Sq Ft Home Is Now Offering To You In Uttara For Sale</span>
+                        //         A slider is great way to display a slideshow featuring images or videos, usually on your homepage.Adding sliders to your site is no longer difficult. You don’t have to know coding anymore. Just use a slider widget and it will automatically insert the slider on your web page.So, the Elementor slider would be a great tool to work with when building a WordPress site.</p>
+                        // </div>
+                        <div className='flex px-5 py-5 lg:px-10 lg:py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                            <p className='font-bold text-2xl md:text-3xl lg:text-4xl'>{property.address}</p>
+                            <div className='flex flex-col md:flex-row gap-5 mt-5 md:mt-10'>
+                                <div className='border border-1 border-black p-4 md:p-5 rounded-3xl'>
+                                    <span className='font-bold text-lg md:text-xl'>${property.totalPrice}</span>
+                                    <p className='text-sm md:text-base'>Online / Cash Payment</p>
                                 </div>
-                                <div className='border border-1 border-black p-5 rounded-3xl'>
-                                    <span className='font-bold text-xl'>${property.emiPrice} / month</span>
-                                    <p>0% EMI for 6 Months</p>
+                                <div className='border border-1 border-black p-4 md:p-5 rounded-3xl'>
+                                    <span className='font-bold text-lg md:text-xl'>${property.emiPrice} / month</span>
+                                    <p className='text-sm md:text-base'>0% EMI for 6 Months</p>
                                 </div>
                             </div>
-                            <p className='text-lg flex flex-col gap-2'><span className='font-bold text-3xl mt-5'>Well-constructed 1562 Sq Ft Home Is Now Offering To You In Uttara For Sale</span>
-                                A slider is great way to display a slideshow featuring images or videos, usually on your homepage.Adding sliders to your site is no longer difficult. You don’t have to know coding anymore. Just use a slider widget and it will automatically insert the slider on your web page.So, the Elementor slider would be a great tool to work with when building a WordPress site.</p>
+                            <p className='text-sm md:text-base lg:text-lg flex flex-col gap-2'>
+                                <span className='font-bold text-2xl md:text-3xl lg:text-3xl mt-5'>
+                                    Well-constructed 1562 Sq Ft Home Is Now Offering To You In Uttara For Sale
+                                </span>
+                                A slider is a great way to display a slideshow featuring images or videos, usually on your homepage. Adding sliders to your site is no longer difficult. You don’t have to know coding anymore. Just use a slider widget and it will automatically insert the slider on your web page. So, the Elementor slider would be a great tool to work with when building a WordPress site.
+                            </p>
                         </div>
+
                     )}
                     {property && (
-                        <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
-                            <p className='font-black text-3xl'>Detailed Overview :-</p>
-                            <p className=' text-xl'><span className='font-bold'>Property Type :-</span> {property.category}</p>
-                            <p className=' text-xl'><span className='font-bold'>Rooms :-</span> {property.rooms}</p>
-                            <p className=' text-xl'><span className='font-bold'>Bathrooms :-</span> {property.bath}</p>
-                            <p className=' text-xl'><span className='font-bold'>Area :-</span> {property.area} sqft</p>
+                        // <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        //     <p className='font-black text-3xl'>Detailed Overview :-</p>
+                        //     <p className=' text-xl'><span className='font-bold'>Property Type :-</span> {property.category}</p>
+                        //     <p className=' text-xl'><span className='font-bold'>Rooms :-</span> {property.rooms}</p>
+                        //     <p className=' text-xl'><span className='font-bold'>Bathrooms :-</span> {property.bath}</p>
+                        //     <p className=' text-xl'><span className='font-bold'>Area :-</span> {property.area} sqft</p>
+                        // </div>
+                        <div className='flex px-5 py-5 lg:px-10 lg:py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                            <p className='font-black text-2xl md:text-3xl'>Detailed Overview :-</p>
+                            <p className='text-lg md:text-xl'><span className='font-bold'>Property Type :-</span> {property.category}</p>
+                            <p className='text-lg md:text-xl'><span className='font-bold'>Rooms :-</span> {property.rooms}</p>
+                            <p className='text-lg md:text-xl'><span className='font-bold'>Bathrooms :-</span> {property.bath}</p>
+                            <p className='text-lg md:text-xl'><span className='font-bold'>Area :-</span> {property.area} sqft</p>
                         </div>
                     )}
                     {property && (
@@ -280,17 +308,29 @@ function PropertyDetails() {
                         </div>
                     )}
                     {property && property.sellerType === "company" && property.agent && (
-                        <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
-                            <p className='font-black text-3xl'>Agent Information</p>
-                            <div className='flex gap-5'>
-                                <img src={profilePic} alt="" className='h-[150px] w-[150px] rounded-3xl' />
-                                <div className='text-lg flex flex-col justify-evenly'>
+                        // <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        //     <p className='font-black text-3xl'>Agent Information</p>
+                        //     <div className='flex gap-5'>
+                        //         <img src={profilePic} alt="" className='h-[150px] w-[150px] rounded-3xl' />
+                        //         <div className='text-lg flex flex-col justify-evenly'>
+                        //             <p className='font-semibold'>{property && property.agent.name}</p>
+                        //             <p>{property && property.agent.email}</p>
+                        //             <p>{property && property.agent.phone}</p>
+                        //         </div>
+                        //     </div>
+                        // </div>
+                        <div className='flex px-5 py-5 lg:px-10 lg:py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                            <p className='font-black text-2xl md:text-3xl text-center md:text-start'>Agent Information</p>
+                            <div className='flex flex-col justify-center items-center md:justify-start md:items-start md:flex-row gap-5'>
+                                <img src={profilePic} alt="Agent Profile" className='h-[100px] w-[100px] md:h-[150px] md:w-[150px] rounded-3xl' />
+                                <div className='text-base md:text-lg flex flex-col justify-evenly'>
                                     <p className='font-semibold'>{property && property.agent.name}</p>
                                     <p>{property && property.agent.email}</p>
                                     <p>{property && property.agent.phone}</p>
                                 </div>
                             </div>
                         </div>
+
                     )}
                     {property && property.sellerType === "user" && property.seller && (
                         <div className='flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
@@ -306,8 +346,8 @@ function PropertyDetails() {
                         </div>
                     )}
                 </div>
-                <div className='w-[397px] flex flex-col gap-5 '>
-                    {property && property.companySellStatus !== "sold" && (property.userSellStatus === "sold" || property.userSellStatus === "none")  && (
+                <div className='w-[90%] mx-auto lg:w-[397px] flex flex-col gap-5 '>
+                    {property && property.companySellStatus !== "sold" && (property.userSellStatus === "sold" || property.userSellStatus === "none") && (
                         <div className='h-fit flex flex-col px-10 py-5 gap-5 bg-white rounded-2xl border border-1 border-black'>
                             <p className='font-semibold text-2xl'>Request for a Visit.</p>
                             {user && (
@@ -323,14 +363,14 @@ function PropertyDetails() {
                         </div>
                     )}
                     {property && property.sellerType === "user" && user && user.memberId === "HRS12092002-1" && (
-                        <div className='w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        <div className='w-[100%] lg:w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
                             <p className='font-semibold text-2xl text-center'>Mark as ?</p>
                             <button onClick={() => handleMark("approved")} className='bg-green-950 text-white font-bold text-xl px-5 py-3'>Approved</button>
                             <button onClick={() => handleMark("rejected")} className='bg-red-700 text-white font-bold text-xl px-5 py-3'>Rejected</button>
                         </div>
                     )}
                     {property && property.userSellStatus === "pending" && user && markValue === "approved" && agents && (
-                        <div className='w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        <div className='w-[100%] lg:w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
                             <form onSubmit={handleApprove} action="POST" className='flex flex-col gap-5'>
                                 <label for="agent" className='font-semibold text-2xl text-center'>Select Agent :-</label>
                                 <select className='border border-black' name="agent" id="agent">
@@ -344,14 +384,14 @@ function PropertyDetails() {
                         </div>
                     )}
                     {property && property.sellerType === "company" && user && user.memberId === "HRS12092002-1" && (
-                        <div className='w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        <div className='w-[100%] lg:w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
                             <p className='font-semibold text-2xl text-center'>Mark as ?</p>
                             <button onClick={() => handleMark("sold")} className='bg-green-950 text-white font-bold text-xl px-5 py-3'>Sold</button>
                             <button onClick={handleRemoveProperty} className='bg-red-700 text-white font-bold text-xl px-5 py-3'>Remove</button>
                         </div>
                     )}
                     {property && property.sellerType === "company" && property.companySellStatus === "pending" && markValue === "sold" && user && user.memberId === "HRS12092002-1" && (
-                        <div className='w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
+                        <div className='w-[100%] lg:w-[397px] h-fit flex px-10 py-5 gap-5 flex-col bg-white rounded-2xl border border-1 border-black'>
                             <form onSubmit={handleSoldProperty} action="POST" className='flex flex-col gap-5'>
                                 <label for="user" className='font-semibold text-2xl text-center'>Sold to who ? :-</label>
                                 <select className='border border-black' name="owner" id="user">

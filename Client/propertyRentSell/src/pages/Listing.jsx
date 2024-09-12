@@ -6,13 +6,14 @@ import { AuthContext } from '../Helpers/AuthContext.js';
 function Listing() {
     const { setAlert, setAlertMessage, setAlertType, url } = useContext(AuthContext);
     return (
-        <AuthContext.Provider value={{setAlert, setAlertMessage, setAlertType, url}}>
-            <div>
-                <div className='bg-[#fbeee6]'>
+        <AuthContext.Provider value={{ setAlert, setAlertMessage, setAlertType, url }}>
+            <div className="min-h-screen flex flex-col">
+                <div className="bg-[#fbeee6] flex-grow py-10">
                     <ListingSearch />
                 </div>
             </div>
-        </AuthContext.Provider>)
+        </AuthContext.Provider>
+    );
 }
 
-export default Listing
+export default Listing;

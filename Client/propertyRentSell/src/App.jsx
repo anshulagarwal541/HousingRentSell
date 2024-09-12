@@ -34,7 +34,7 @@ const clientId = import.meta.env.VITE_CLIENTID;
 
 
 function App() {
-  const url="https://housingrentsell-backend.onrender.com"
+  const url=import.meta.env.VITE_DB
   const [user, setUser] = useState(null);
   const [member, setMember] = useState(null);
   const [employee, setEmployee] = useState(null);

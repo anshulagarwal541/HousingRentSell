@@ -86,38 +86,73 @@ function NavBar() {
       onKeyDown={toggleDrawer(anchor, false)}
       style={{ backgroundColor: '#fff9f5', height: '100%' }}
     >
-      <List>
-        <Link to='/user/:queries'>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Queries" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link to="/userAddProperty">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sell Property" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link to="/userAddProperty/sellData">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Selling Databse" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-      </List>
+      {user && (
+        <List>
+          <Link to='/user/:queries'>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Queries" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link to="/userAddProperty">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="Sell Property" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link to="/userAddProperty/sellData">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Selling Databse" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+      )}
+      {member && (
+        <>
+          <List>
+            {['Chats', 'Team Members'].map((text, index) => (
+              <Link key={index} to={`${text == 'Chats' ? '/chat' : text == 'Team Members' ? '/peopleChat' : ''}`}>
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {['Update Details', 'Applications', 'Queries', 'Add Property', 'User\'s Sell Request'].map((text, index) => (
+              <Link to={`${text == "Update Details" ? "/updateDetails" : (text == "Queries" ? "/queries" : (text == "Applications" ? "/applications" : (text == "Add Property" ? "/addProperty" : (text == 'User\'s Sell Request' ? "/userSellRequest" : ""))))}`}>
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </>
+      )}
       <ListItem>
         <div className=' items-center min-w-full flex justify-end'>
           {(!user && !member) ? (
@@ -140,8 +175,8 @@ function NavBar() {
   return (
     <div className="w-[100%] py-2 bg-[#fff7f0]">
       <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
-        <div className='hidden md:flex items-center justify-center'>
-          <img src={logo} alt="logo" className='w-[80px] h-[80px] rounded-full' />
+        <div className='hidden sm:flex items-center justify-center'>
+          <img src={logo} alt="logo" className='w-[3rem] h-[3rem] rounded-full border-2 border-black' />
         </div>
         {/* Navigation Links */}
         <div className="flex text-sm md:text-lg">
@@ -152,7 +187,18 @@ function NavBar() {
             <Link to="/about"><li className="p-2 md:p-5 hover:font-bold">About Us</li></Link>
           </ul>
         </div>
-        {user && (
+
+        <div>
+          <Button style={{ color: 'black' }} onClick={toggleDrawer(right, true)}><MenuIcon /></Button>
+          <Drawer
+            anchor={'right'}
+            open={right}
+            onClose={toggleDrawer('right', false)}
+          >
+            {list2(right)}
+          </Drawer>
+        </div>
+        {/* {member && (
           <div>
             <Button style={{ color: 'black' }} onClick={toggleDrawer(right, true)}><MenuIcon /></Button>
             <Drawer
@@ -160,24 +206,10 @@ function NavBar() {
               open={right}
               onClose={toggleDrawer('right', false)}
             >
-              {list2(right)}
+              {list(right)}
             </Drawer>
           </div>
-        )}
-        <div>
-          {member && (
-            <div>
-              <Button style={{ color: 'black' }} onClick={toggleDrawer(right, true)}><MenuIcon /></Button>
-              <Drawer
-                anchor={'right'}
-                open={right}
-                onClose={toggleDrawer('right', false)}
-              >
-                {list(right)}
-              </Drawer>
-            </div>
-          )}
-        </div>
+        )} */}
       </div>
     </div>
   )
