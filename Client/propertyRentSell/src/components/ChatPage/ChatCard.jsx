@@ -7,7 +7,6 @@ function ChatCard({ name, image, chat, currentId }) {
             <div className='flex flex-col gap-2'>
                 <p className='font-bold text-2xl'>{name.name}</p>
                 <p className='text-xl'>{chat.message[chat.message.length-1]}</p>
-                {console.log(`${name} `, chat)}
             </div>
         </div>
     )

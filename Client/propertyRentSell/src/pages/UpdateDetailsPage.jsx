@@ -21,7 +21,7 @@ function UpdateDetailsPage() {
     }, [])
     return (
         <AuthContext.Provider value={{ url, setAlert, setAlertType, setAlertMessage }}>
-            <div className='h-[100vh] flex justify-center items-center'>
+            <div className='h-[100vh] px-2 flex justify-center items-center'>
                 {employee && <UpdateDetails employee={employee} />}
             </div>
         </AuthContext.Provider>
